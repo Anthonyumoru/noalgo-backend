@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["erlang_25", "openssl"]
+
+[phases.build]
+cmds = ["rebar3 release"]
+
+[start]
+cmd = "_build/default/rel/noalgo_backend/bin/noalgo_backend foreground"
