@@ -1,0 +1,1 @@
+web: _build/default/bin/noalgo_backend foreground
