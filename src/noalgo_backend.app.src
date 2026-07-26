@@ -1,0 +1,11 @@
+{application, noalgo_backend,
+ [{description, "NOALGO: Local Business Engine for Abuja"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {noalgo_backend_app, []}},
+  {applications, [kernel, stdlib]},
+  {env,[]},
+  {modules, []},
+  {licenses, ["MIT"]},
+  {links, []}
+ ]}.
