@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["erlang_25", "openssl"]
+nixPkgs = ["erlang_25", "openssl", "rebar3"]
 
 [phases.build]
 cmds = ["rebar3 release"]
