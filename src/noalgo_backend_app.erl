@@ -4,13 +4,16 @@
 -export([start/2, stop/1]).
 
 start(_StartType, _StartArgs) ->
-    % 1. GET PORT from internet, or use 8080 locally
+    %% Ensure cowboy and ranch dependencies are running before starting the server
+    {ok, _} = application:ensure_all_started(cowboy),
+
+    %% 1. GET PORT from environment, or use 10000 locally
     Port = case os:getenv("PORT") of
-        false -> 8080;
+        false -> 10000;
         PortStr -> list_to_integer(PortStr)
     end,
 
-    % 2. SET UP ROUTES
+    %% 2. SET UP ROUTES
     Dispatch = cowboy_router:compile([
         {'_', [
             {"/api/deals", deal_handler, []},
@@ -18,7 +21,7 @@ start(_StartType, _StartArgs) ->
         ]}
     ]),
 
-    % 3. START COWBOY SERVER
+    %% 3. START COWBOY SERVER
     {ok, _} = cowboy:start_clear(http,
         [{port, Port}],
         #{env => #{dispatch => Dispatch}}
