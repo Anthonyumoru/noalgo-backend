@@ -6,9 +6,11 @@
 start(_StartType, _StartArgs) ->
     {ok, _} = application:ensure_all_started(cowboy),
 
+    %% Safe port extraction for Render's environment variables
     Port = case os:getenv("PORT") of
         false -> 10000;
-        PortStr -> list_to_integer(PortStr)
+        "" -> 10000;
+        PortStr -> erlang:list_to_integer(PortStr)
     end,
 
     Dispatch = cowboy_router:compile([
