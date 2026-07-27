@@ -15,6 +15,7 @@ start(_StartType, _StartArgs) ->
 
     Dispatch = cowboy_router:compile([
         {'_', [
+            {"/", noalgo_root_handler, []},
             {"/api/deals", deal_handler, []},
             {"/api/businesses", business_handler, []}
         ]}
