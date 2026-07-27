@@ -12,11 +12,10 @@ init(Req0, State) ->
         <<"access-control-allow-headers">> => <<"content-type">>,
         <<"content-type">> => <<"application/json">>
     },
-    Req1 = cowboy_req:set_resp_headers(Headers, Req0),
 
     case Method of
         <<"OPTIONS">> ->
-            Req2 = cowboy_req:reply(204, #{}, <<>>, Req1),
+            Req2 = cowboy_req:reply(204, Headers, <<>>, Req0),
             {ok, Req2, State};
         <<"GET">> ->
             Businesses = [
@@ -24,9 +23,9 @@ init(Req0, State) ->
                 #{id => 2, name => <<"Cutting Edge Salon">>, category => <<"Beauty">>}
             ],
             Json = jsx:encode(Businesses),
-            Req2 = cowboy_req:reply(200, #{}, Json, Req1),
+            Req2 = cowboy_req:reply(200, Headers, Json, Req0),
             {ok, Req2, State};
         _ ->
-            Req2 = cowboy_req:reply(405, #{}, <<"Method Not Allowed">>, Req1),
+            Req2 = cowboy_req:reply(405, Headers, <<"Method Not Allowed">>, Req0),
             {ok, Req2, State}
     end.
