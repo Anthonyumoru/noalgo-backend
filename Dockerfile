@@ -1,7 +1,7 @@
 FROM erlang:25
 
 WORKDIR /app
-COPY .
+COPY . .
 
 RUN rebar3 release
 
